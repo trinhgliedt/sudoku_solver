@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'sudokuStyle.css' %}">
+    <title>Sudoku solver</title>
+</head>
+<body>
+    <div id="wrapper">
+
+        <table border="2">
+            <!-- Outermost caption tag for enclosing table information -->
+            <caption>
+                <h4>Sudoku Puzzle</h4>
+                <p><em>Directions</em>: Have each 3x3 square, each row, and each column have a number from 1 - 9. No repeat numbers allowed per row, column, or 3x3 square.</p>
+            </caption>
+            <!-- <thead> tag is commonly used to include informative description of table -->
+            <thead>
+                <!-- The <tr> tag represents the first `row` of the table -->
+                <!-- <tr> -->
+                    <!-- These <th> tags are header columns, one for difficulty, and one for the difficulty level (Easy) -->
+                    <!-- <th colspan="5" style="border: none">Difficulty</th>
+                    <th colspan="3" style="border: none">Easy</th> -->
+                <!-- </tr> -->
+            </thead>
+            <tr>
+                <!-- First three cells have a 3, 9, and 8 -->
+                <td class="cell bl bt">3</td>
+                <td class="cell bt">9</td>
+                <td class="cell br bt">8</td>
+                <!-- empty cells filled with non-breaking spaces to give more whitespace -->
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="cell bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">2</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">8</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">3</td>
+                <td class="cell">5</td>
+                <td class="cell br">9</td>
+            </tr>
+            <tr>
+                <td class="cell bl bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bb">1</td>
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bb">4</td>
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <!-- <tr></tr>
+            <tr></tr> -->
+            <tr>
+                <td class="cell bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">4</td>
+                <td class="cell br">9</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">1</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="cell bl">8</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">6</td>
+                <td class="cell">9</td>
+                <td class="cell br">5</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">4</td>
+            </tr>
+            <tr>
+                <td class="cell bl bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bb">4</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bb">5</td>
+                <td class="cell bb">9</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <!-- <tr></tr>
+            <tr></tr> -->
+            <tr>
+                <td class="cell bl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">5</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">3</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="cell bl">7</td>
+                <td class="cell">8</td>
+                <td class="cell br">6</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell">2</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell">1</td>
+                <td class="cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="cell bl bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="cell br bb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <!-- <td style="border: none"></td> -->
+                <td class="cell bb">7</td>
+                <td class="cell bb">8</td>
+                <td class="cell br bb">2</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+#wrapper {
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+table {
+    margin: 3% 3%;
+    border-collapse: collapse;
+}
+
+.cell {
+    font-size: x-large;
+    min-width: 2em;
+    height: 2em;
+}
+.bl {
+    border-left: 2px solid black;
+}
+.br {
+    border-right: 2px solid black;
+}
+.bt {
+    border-top: 2px solid black;
+}
+.bb {
+    border-bottom: 2px solid black;
+}
