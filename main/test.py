@@ -1,8 +1,5 @@
-from django.shortcuts import render
 import numpy as np
-
-def index(request):
-
+def index():
     # 1. Get input from user on the given values on the sudoku
     # this step is pending
 
@@ -117,9 +114,14 @@ def index(request):
     for val in neighborValue["row"] + neighborValue["column"] + neighborValue["square"]:
         if val not in neighborValueList:
             neighborValueList.append(val)
-    print(neighborValueList)
+    print("neighborValueList: ",neighborValueList)
 
-    context = {
-        "color": "green"
-    }
-    return render(request, "index.html", context)
+    # generate possible value for the current cell:
+    possibleValues = []
+    for num in validNumbers:
+        if num not in neighborValueList:
+            possibleValues.append(num)
+    print("possibleValues: ", possibleValues)
+
+
+index()
