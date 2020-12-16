@@ -1,10 +1,50 @@
 import numpy as np
-def index():
+import random
+
+sValues1 = np.array([\
+        [None, None, None, None, None, None, None, None, None, None],\
+        [None, 3, 9, 8, 0, 0, 0, 0, 0, 0],\
+        [None, 0, 0, 2, 0, 8, 0, 3, 5, 9],\
+        [None, 0, 0, 0, 1, 0, 0, 4, 0, 0],\
+        [None, 0, 4, 9, 0, 1, 0, 0, 0, 0],\
+        [None, 8, 0, 0, 6, 9, 5, 0, 0, 4],\
+        [None, 0, 0, 0, 0, 4, 0, 5, 9, 0],\
+        [None, 0, 0, 5, 0, 0, 3, 0, 0, 0],\
+        [None, 7, 8, 6, 0, 2, 0, 1, 0, 0],\
+        [None, 0, 0, 0, 0, 0, 0, 7, 8, 2]\
+        ])
+sValues2 = np.array([\
+        [None, None, None, None, None, None, None, None, None, None],\
+        [None, 0,0,0,0,8,5,0,2,0],\
+        [None, 0,0,0,0,8,5,0,2,0],\
+        [None, 0,0,8,0,4,0,9,0,0],\
+        [None, 0,0,0,0,0,0,0,8,0],\
+        [None, 9,7,3,0,1,0,2,4,5],\
+        [None, 0,4,0,0,0,0,0,0,0],\
+        [None, 0,0,6,0,5,0,1,0,0],\
+        [None, 0,8,0,0,0,0,0,0,3],\
+        [None, 0,8,0,0,0,0,0,0,3]\
+        ])
+sValues = np.array([\
+        [None, None, None, None, None, None, None, None, None, None],\
+        [None, 0,0,8,0,6,0,9,1,4],\
+        [None, 0,0,0,0,0,0,6,0,0],\
+        [None, 0,6,0,4,0,2,0,5,0],\
+        [None, 1,0,0,0,5,0,0,4,0],\
+        [None, 0,5,6,9,0,7,3,8,0],\
+        [None, 0,8,0,0,3,0,0,0,9],\
+        [None, 0,1,0,5,0,8,0,9,0],\
+        [None, 0,0,5,0,0,0,0,0,0],\
+        [None, 8,4,7,0,2,0,1,0,0]\
+        ])
+originalValues = sValues
+
+def solveSudoku(sValues, originalValues):
     # 1. Get input from user on the given values on the sudoku
     # 1a. Check if input is valid
     # this step is pending
 
-    # 2. Populate the given values to the sValue array
+    # 2. Populate the given values to the sValues array
     # this step is pending
 
     # 3. Find the possible value for each cell with no given value
@@ -20,21 +60,10 @@ def index():
         [80, 81, 82, 83, 84, 85, 86, 87, 88, 89],\
         [90, 91, 92, 93, 94, 95, 96, 97, 98, 99],\
         ])
-    sValue = np.array([\
-        [None, None, None, None, None, None, None, None, None, None],\
-        [None, 3, 9, 8, 0, 0, 0, 0, 0, 0],\
-        [None, 0, 0, 2, 0, 8, 0, 3, 5, 9],\
-        [None, 0, 0, 0, 1, 0, 0, 4, 0, 0],\
-        [None, 0, 4, 9, 0, 1, 0, 0, 0, 0],\
-        [None, 8, 0, 0, 6, 9, 5, 0, 0, 4],\
-        [None, 0, 0, 0, 0, 4, 0, 5, 9, 0],\
-        [None, 0, 0, 5, 0, 0, 3, 0, 0, 0],\
-        [None, 7, 8, 6, 0, 2, 0, 1, 0, 0],\
-        [None, 0, 0, 0, 0, 0, 0, 7, 8, 2],\
-        ])
+    
     validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    def findPossibleValues(curCell, sAddress, sValue, validNumbers):
+    def findPossibleValues(curCell, sAddress, sValues, validNumbers):
     
         _3x3_square_pool = np.array([\
             [11, 12, 13, 21, 22, 23, 31, 32, 33],\
@@ -64,7 +93,7 @@ def index():
         curLoc = {"x": int(curCellStr[0]), "y": int(curCellStr[1])}
         neighborValue = {"row": [], "column": [], "square": []}
         # iterate through the row of the current cell, add the value of the given cells to the neighborValue dict
-        for item in sValue[curLoc["x"]]:
+        for item in sValues[curLoc["x"]]:
             if item != 0 and item in validNumbers:
                 neighborValue["row"].append(item)
 
@@ -73,7 +102,7 @@ def index():
         for address in column_address:
             addStr = str(address)
             location = {"x": int(addStr[0]), "y": int(addStr[1])}
-            value = sValue[location["x"]][location["y"]]
+            value = sValues[location["x"]][location["y"]]
             if value != 0 and value in validNumbers:
                 neighborValue["column"].append(value)
 
@@ -105,7 +134,7 @@ def index():
         for address in _3x3_square_address:
             addStr = str(address)
             location = {"x": int(addStr[0]), "y": int(addStr[1])}
-            value = sValue[location["x"]][location["y"]]
+            value = sValues[location["x"]][location["y"]]
             if value != 0 and value in validNumbers:
                 neighborValue["square"].append(value)
         # print(neighborValue)
@@ -132,27 +161,68 @@ def index():
 
     possibleValueDict = {}
     knownValues = {}
-    knownValueArr = sValue
-    # iterate through the sValue array and find possible values for all the values not given
-    for row in range (1, len(sValue)):
-        for col in range (1, len(sValue[row])):
+    knownValueArr = sValues
+    # keep a count of cell with single possible value. 
+    # if there is no cell with single possible value, we'll need to pick a value from cells with 2 possible values
+    countOfSingleValRange = 0
+    
+    # doubleValRangeList to store address of cells with 2 possible values, to use when there's no single possible value
+    doubleValRangeList = []
+
+    # iterate through the sValues array and find possible values for all the values not given
+    for row in range (1, len(sValues)):
+        for col in range (1, len(sValues[row])):
             curCell = int(str(row)+str(col))
-            if sValue[row][col] in validNumbers:
-                knownValues[curCell] = sValue[row][col]
-            if sValue[row][col] == 0 and sValue[row][col] is not list:
-                valueRange = findPossibleValues(curCell, sAddress, sValue, validNumbers)
-                if len(valueRange) == 1:
+            if sValues[row][col] in validNumbers:
+                knownValues[curCell] = sValues[row][col]
+            if sValues[row][col] == 0 and sValues[row][col] is not list:
+                valueRange = findPossibleValues(curCell, sAddress, sValues, validNumbers)
+                # if any of the possible value range is empty, that means the random choice we made wasn't good --> restart the function all over again
+                if len(valueRange) == 0:
+                    knownValueArr = originalValues
+                    solveSudoku(knownValueArr, originalValues)
+                elif len(valueRange) == 1:
                     knownValueArr[row][col] = valueRange[0]
                     knownValues[curCell] = valueRange[0]
+                    countOfSingleValRange += 1
                     # note: this can be used for hints
-                elif len(valueRange) > 1:
+                elif len(valueRange) == 2:
                     possibleValueDict[curCell] = valueRange
+                    doubleValRangeList.append(int(str(row)+str(col)))
+                elif len(valueRange) > 2:
+                    possibleValueDict[curCell] = valueRange
+    # in case of no single possible value:
+    if countOfSingleValRange == 0:
+        # pick a random item of the list of double possible value:
+        randomItem = random.randint(0,len(doubleValRangeList)-1)
+        randomItemAddress = doubleValRangeList[randomItem]
+        # remember that doubleValRangeList [] contains addresses of cells with double possible value. Therefore randomItemAddress refers to an address 
+        # get value of that address out from the possibleValueDict:
+        selectedRange = possibleValueDict[randomItemAddress]
+        # then, pick a random item from one of the 2 value:
+        randomValNum = random.randint(0,1)
+        selectedVal = selectedRange[randomValNum]
+        # convert the address back to row and col
+        r = int(randomItemAddress/10)
+        c = int(randomItemAddress%10)
+        # assign this value to the knownValueArr:
+        knownValueArr[r][c] = selectedVal
+
     # print("knownValues: ", knownValues)
     print("knownValueArr: ", knownValueArr)
     # print("possibleValueDict: ", possibleValueDict)
 
-    # generate an update array based on known values, to be used for recursion
+    # recurse:
+    # Exit when all the values are filled
+    countOfKnownValues = 0
+    for row in range (1, len(knownValueArr)):
+        for col in range (1, len(knownValueArr[row])):
+            if knownValueArr[row][col] in validNumbers:
+                countOfKnownValues += 1
+    if countOfKnownValues == 81:
+        return knownValueArr
+    else:
+        solveSudoku(knownValueArr, originalValues)
 
-
-index()
+solveSudoku(sValues, originalValues)
 
