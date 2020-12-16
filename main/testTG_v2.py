@@ -1,4 +1,3 @@
-from django.shortcuts import render
 import numpy as np
 import random
 
@@ -131,9 +130,16 @@ def findPossibleValues(curCell, sAddress, sValues, validNumbers):
         print(curCell, ", possibleValues: ", possibleValues)
         return possibleValues
 
-def solveSudoku(sValues, originalValues):
 
-    # Find the possible value for each cell with no given value
+def solveSudoku(sValues, originalValues):
+    # 1. Get input from user on the given values on the sudoku
+    # 1a. Check if input is valid
+    # this step is pending
+
+    # 2. Populate the given values to the sValues array
+    # this step is pending
+
+    # 3. Find the possible value for each cell with no given value
     sAddress = np.array([\
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],\
         [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],\
@@ -216,12 +222,5 @@ def solveSudoku(sValues, originalValues):
     else:
         solveSudoku(knownValueArr, originalValues)
 
+solveSudoku(sValues, originalValues)
 
-
-def index(request):
-    sudokuResult = solveSudoku(sValues, originalValues)
-
-    context = {
-        "sudokuResult": sudokuResult
-    }
-    return render(request, "index.html", context)

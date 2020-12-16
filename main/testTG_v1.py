@@ -1,7 +1,7 @@
 import numpy as np
 import random
 
-sValues1 = np.array([\
+sValues = np.array([\
         [None, None, None, None, None, None, None, None, None, None],\
         [None, 3, 9, 8, 0, 0, 0, 0, 0, 0],\
         [None, 0, 0, 2, 0, 8, 0, 3, 5, 9],\
@@ -13,7 +13,7 @@ sValues1 = np.array([\
         [None, 7, 8, 6, 0, 2, 0, 1, 0, 0],\
         [None, 0, 0, 0, 0, 0, 0, 7, 8, 2]\
         ])
-sValues2 = np.array([\
+sValues1 = np.array([\
         [None, None, None, None, None, None, None, None, None, None],\
         [None, 0,0,0,0,8,5,0,2,0],\
         [None, 0,0,0,0,8,5,0,2,0],\
@@ -25,7 +25,7 @@ sValues2 = np.array([\
         [None, 0,8,0,0,0,0,0,0,3],\
         [None, 0,8,0,0,0,0,0,0,3]\
         ])
-sValues = np.array([\
+sValues2 = np.array([\
         [None, None, None, None, None, None, None, None, None, None],\
         [None, 0,0,8,0,6,0,9,1,4],\
         [None, 0,0,0,0,0,0,6,0,0],\
@@ -202,6 +202,7 @@ def solveSudoku(sValues, originalValues):
         # then, pick a random item from one of the 2 value:
         randomValNum = random.randint(0,1)
         selectedVal = selectedRange[randomValNum]
+        selectedVal = selectedRange[0]
         # convert the address back to row and col
         r = int(randomItemAddress/10)
         c = int(randomItemAddress%10)
